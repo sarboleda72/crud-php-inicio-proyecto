@@ -11,63 +11,46 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1 class="text-center text-info"> <i class="fa fa-search"></i> Consultar Usuario </h1>
+				<h1 class="text-center text-info"> <i class="fa fa-search"></i> Consultar Inventario </h1>
 				<hr>
 				<ol class="breadcrumb">
 				  <li><a href="../">Inicio</a></li>
-				  <li class="active">Consultar Usuario</li>
+				  <li class="active">Consultar Inventario</li>
 				</ol>
 				<table class="table table-striped table-hover">
 				<?php 
 					include '../config/connect.php';
 					if (isset($_GET['id'])) {
 						$id     = $_GET['id'];
-						$sql    = "SELECT * FROM usuarios WHERE documento = $id";
+						$sql    = "SELECT * FROM inventario WHERE codigobarra = $id";
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_array($result)) {
 				?>
 					<tr>
-						<th> Documento </th>
-						<td> <?php echo $row['documento']; ?></td>
+						<th> Codigo Barra </th>
+						<td> <?php echo $row['codigobarra']; ?></td>
 					</tr>
 					<tr>
-						<th> Nombre Completo </th>
-						<td> <?php echo $row['nombres']; ?></td>
+						<th> cantidad </th>
+						<td> <?php echo $row['cantidad']; ?></td>
 					</tr>
 					<tr>
-						<th> Correo Electrónico </th>
-						<td> <?php echo $row['correo']; ?></td>
+						<th> Fecha de entrada </th>
+						<td> <?php echo $row['fechaentrada']; ?></td>
 					</tr>
 					<tr>
-						<th> Teléfono </th>
-						<td> <?php echo $row['telefono']; ?></td>
+						<th> Fecha de salida </th>
+						<td> <?php echo $row['fehcasalida']; ?></td>
 					</tr>
 					<tr>
-						<th> Ciudad: </th>
-						<td> <?php echo $row['ciudad']; ?></td>
+						<th> Lote </th>
+						<td> <?php echo $row['lote']; ?></td>
 					</tr>
 					<tr>
-						<th> Foto: </th>
+						<th> Foto </th>
 						<td> 
 							<img src="../<?php echo $row['foto']; ?>" width="80px" data-img="<?php echo $row['foto']; ?>" style="cursor: zoom-in;"> 
 						</td>
-					</tr>
-					<tr>
-						<th> Genero: </th>
-						<td> 
-							<?php 
-								if($row['genero'] == 'F')
-									echo "Femenino <i class='fa fa-venus'></i>";
-								else if($row['genero'] == 'M')
-									echo "Masculino <i class='fa fa-mars'></i>";
-								else if($row['genero'] == 'T')
-									echo "Transgenero <i class='fa fa-transgender'></i>";
-							?>
-						</td>
-					</tr>
-					<tr>
-						<th> Rol </th>
-						<td> <?php echo $row['rol']; ?></td>
 					</tr>
 				<?php
 						}
