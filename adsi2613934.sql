@@ -26,6 +26,8 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `usuarios`
 --
+CREATE database adsi1323395;
+use adsi1323395;
 
 CREATE TABLE `usuarios` (
   `documento` int(11) NOT NULL,
