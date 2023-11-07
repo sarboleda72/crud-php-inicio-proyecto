@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title> Consultar Usuario </title>
+	<title> Consultar Pedido </title>
 	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../public/css/fontawesome-all.min.css">
 </head>
@@ -11,40 +11,40 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1 class="text-center text-info"> <i class="fa fa-search"></i> Consultar Inventario </h1>
+				<h1 class="text-center text-info"> <i class="fa fa-search"></i> Consultar Pedido </h1>
 				<hr>
 				<ol class="breadcrumb">
 				  <li><a href="../">Inicio</a></li>
-				  <li class="active">Consultar Inventario</li>
+				  <li class="active">Consultar Pedido</li>
 				</ol>
 				<table class="table table-striped table-hover">
 				<?php 
 					include '../config/connect.php';
 					if (isset($_GET['id'])) {
 						$id     = $_GET['id'];
-						$sql    = "SELECT * FROM inventario WHERE codigobarra = $id";
+						$sql    = "SELECT * FROM pedido WHERE id = $id";
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_array($result)) {
 				?>
 					<tr>
-						<th> Codigo Barra </th>
-						<td> <?php echo $row['codigobarra']; ?></td>
+						<th> ID </th>
+						<td> <?php echo $row['id']; ?></td>
 					</tr>
 					<tr>
-						<th> cantidad </th>
-						<td> <?php echo $row['cantidad']; ?></td>
+						<th> Nombre del Artículo </th>
+						<td> <?php echo $row['nombrearticulo']; ?></td>
 					</tr>
 					<tr>
-						<th> Fecha de entrada </th>
-						<td> <?php echo $row['fechaentrada']; ?></td>
+						<th> Cantidad Pedido </th>
+						<td> <?php echo $row['cantidadpedido']; ?></td>
 					</tr>
 					<tr>
-						<th> Fecha de salida </th>
-						<td> <?php echo $row['fehcasalida']; ?></td>
+						<th> Fecha de Pedido </th>
+						<td> <?php echo $row['fechapedido']; ?></td>
 					</tr>
 					<tr>
-						<th> Lote </th>
-						<td> <?php echo $row['lote']; ?></td>
+						<th> Fecha de Entrega </th>
+						<td> <?php echo $row['fechaentrega']; ?></td>
 					</tr>
 					<tr>
 						<th> Foto </th>

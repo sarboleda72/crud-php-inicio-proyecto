@@ -3,50 +3,49 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title> Modificar Inventario </title>
+	<title> Modificar Pedido </title>
 	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../public/css/fontawesome-all.min.css">
 </head>
 <body>
-	<div class="container">
+	<div class	="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1 class="text-center text-info"> <i class="fa fa-pencil-alt"></i> Modificar Inventario </h1>
+				<h1 class="text-center text-info"> <i class="fa fa-pencil-alt"></i> Modificar Pedido </h1>
 				<hr>
 				<ol class="breadcrumb">
 				  <li><a href="../">Inicio</a></li>
-				  <li class="active">Modificar Inventario</li>
+				  <li class="active">Modificar Pedido</li>
 				</ol>
 				<?php
 					if(isset($_GET['id'])) {
 						include '../config/connect.php';
 						$id     = intval($_GET['id']);
-						$sql    = "SELECT * FROM inventario WHERE codigobarra = $id";
+						$sql    = "SELECT * FROM pedido WHERE id = $id";
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_array($result)) {
 				?>
 				<form action="" method="post" enctype="multipart/form-data">
 					<div class="form-group">
-						<input type="number" class="form-control" name="codigobarra" placeholder="Codigo de barra" required readonly value="<?php echo $row['codigobarra']; ?>">
+						<input type="number" class="form-control" name="id" placeholder="ID" required readonly value="<?php echo $row['id']; ?>">
 					</div>
 					<div class="form-group">
-						<input type="number" class="form-control" name="cantidad" placeholder="Cantidad" required value="<?php echo $row['cantidad']; ?>">
+						<input type="text" class="form-control" name="nombrearticulo" placeholder="Nombre del Artículo" required value="<?php echo $row['nombrearticulo']; ?>">
 					</div>
 					<div class="form-group">
-						<label >Fecha de entrada</label>
-						<input type="date" class="form-control" name="fechaentrada" placeholder="" required value="<?php echo $row['fechaentrada']; ?>">
+						<input type="number" class="form-control" name="cantidadpedido" placeholder="Cantidad del Pedido" required value="<?php echo $row['cantidadpedido']; ?>">
 					</div>
 					<div class="form-group">
-						<label>Fecha salida</label>
-						<input type="date" class="form-control" name="fehcasalida" placeholder="" required value="<?php echo $row['fehcasalida']; ?>">
+						<label>Fecha de Pedido</label>
+						<input type="date" class="form-control" name="fechapedido" required value="<?php echo $row['fechapedido']; ?>">
 					</div>
 					<div class="form-group">
-						<label>Lote</label>
-						<input type="number" class="form-control" name="lote" placeholder="Ciudad" required value="<?php echo $row['lote']; ?>">
+						<label>Fecha de Entrega</label>
+						<input type="date" class="form-control" name="fechaentrega" required value="<?php echo $row['fechaentrega']; ?>">
 					</div>
 					<div class="form-group">
 						<input type="file" class="form-control" name="foto" accept="image/*">
-						<button class="btn btn-default btn-foto"> <i class="fa fa-user"></i> Seleccione Foto de Perfil </button>
+						<button class="btn btn-default btn-foto"> <i class="fa fa-image"></i> Seleccione Foto del Pedido </button>
 						<input type="hidden" name="url_foto" value="<?php echo $row['foto']; ?>">
 					</div>
 					<div class="form-group">
@@ -58,11 +57,11 @@
 						}
 					} 
 					if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-						$codigobarra = mysqli_real_escape_string($conn, $_POST['codigobarra']);
-						$cantidad   = mysqli_real_escape_string($conn, $_POST['cantidad']);
-						$fechaentrada    = mysqli_real_escape_string($conn, $_POST['fechaentrada']);
-						$fehcasalida  = mysqli_real_escape_string($conn, $_POST['fehcasalida']);
-						$lote    = mysqli_real_escape_string($conn, $_POST['lote']);
+						$id = mysqli_real_escape_string($conn, $_POST['id']);
+						$nombrearticulo = mysqli_real_escape_string($conn, $_POST['nombrearticulo']);
+						$cantidadpedido = mysqli_real_escape_string($conn, $_POST['cantidadpedido']);
+						$fechapedido = mysqli_real_escape_string($conn, $_POST['fechapedido']);
+						$fechaentrega = mysqli_real_escape_string($conn, $_POST['fechaentrega']);
 
 						if ($_FILES['foto']['tmp_name']) {
 							$url  = 'public/imgs/fotos/';
@@ -71,17 +70,17 @@
 								unlink('../'.$_POST['url_foto']);
 							}
 							move_uploaded_file($_FILES['foto']['tmp_name'], '../'.$url.$_FILES['foto']['name']);
-							$sql = "UPDATE inventario SET lote = '$lote', cantidad = '$cantidad', fechaentrada = '$fechaentrada', fehcasalida = '$fehcasalida', foto = '$foto' WHERE codigobarra = $codigobarra";
+							$sql = "UPDATE pedido SET nombrearticulo = '$nombrearticulo', cantidadpedido = '$cantidadpedido', fechapedido = '$fechapedido', fechaentrega = '$fechaentrega', foto = '$foto' WHERE id = $id";
 						} else {
-							$sql = "UPDATE inventario SET cantidad = '$cantidad', fechaentrada = '$fechaentrada', fehcasalida = '$fehcasalida', lote = '$lote'WHERE codigobarra = $codigobarra";
+							$sql = "UPDATE pedido SET nombrearticulo = '$nombrearticulo', cantidadpedido = '$cantidadpedido', fechapedido = '$fechapedido', fechaentrega = '$fechaentrega' WHERE id = $id";
 						}
 
 						if (mysqli_query($conn, $sql)) {
 							$_SESSION['statusQuery'] = 'success';
-							$_SESSION['message'] = 'Usuario Modificado con Exito!';
+							$_SESSION['message'] = 'Pedido Modificado con Éxito!';
 						} else {
 							$_SESSION['statusQuery'] = 'danger';
-							$_SESSION['message'] = 'El Usuario no se pudo Modificar!';
+							$_SESSION['message'] = 'El Pedido no se pudo Modificar!';
 						}
 						echo "<script> window.location.replace('../') </script>";
 					}

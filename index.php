@@ -53,7 +53,7 @@
 								<td>
 									<a href="users/show.php?id=<?php echo $row['codigobarra'] ?>" class="btn btn-default"> <i class="fa fa-search"></i> </a>
 									<a href="users/edit.php?id=<?php echo $row['codigobarra'] ?>" class="btn btn-default"> <i class="fa fa-pencil-alt"></i> </a>
-									<a href="javascript:;" class="btn btn-danger btn-delete" data-id="<?php echo $row['codigobarra'] ?>"> <i class="fa fa-trash"></i> </a>
+									<a href="javascript:;" class="btn btn-danger btn-delete-inventario" data-id="<?php echo $row['codigobarra'] ?>"> <i class="fa fa-trash"></i> </a>
 								</td>
 							</tr>
 						<?php } ?>
@@ -89,7 +89,7 @@
 								<td>
 									<a href="pedido/show.php?id=<?php echo $row['id'] ?>" class="btn btn-default"> <i class="fa fa-search"></i> </a>
 									<a href="pedido/edit.php?id=<?php echo $row['id'] ?>" class="btn btn-default"> <i class="fa fa-pencil-alt"></i> </a>
-									<a href="javascript:;" class="btn btn-danger btn-delete" data-id="<?php echo $row['id'] ?>"> <i class="fa fa-trash"></i> </a>
+									<a href="javascript:;" class="btn btn-danger btn-delete-pedido" data-id="<?php echo $row['id'] ?>"> <i class="fa fa-trash"></i> </a>
 								</td>
 							</tr>
 						<?php } ?>
@@ -117,7 +117,7 @@
 			unset($_SESSION['message']);
 			?>
 			/* - - - - - - - - - - - - - - - - - - - - - - - - - - */
-			$('table').on('click', '.btn-delete', function(event) {
+			$('table').on('click', '.btn-delete-inventario', function(event) {
 				event.preventDefault();
 				$id = $(this).attr('data-id');
 				swal({
@@ -129,6 +129,21 @@
 				}).then((result) => {
 					if (result.value) {
 						window.location.replace('users/delete.php?id=' + $id);
+					}
+				});
+			});
+			$('table').on('click', '.btn-delete-pedido', function(event) {
+				event.preventDefault();
+				$id = $(this).attr('data-id');
+				swal({
+					title: 'Esta seguro ?',
+					text: "Realmente desea eliminar este usuario ?",
+					type: 'warning',
+					showCancelButton: true,
+					cancelButtonColor: '#d33'
+				}).then((result) => {
+					if (result.value) {
+						window.location.replace('pedido/delete.php?id=' + $id);
 					}
 				});
 			});
