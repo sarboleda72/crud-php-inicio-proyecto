@@ -4,7 +4,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title> Adicionar pedido </title>
+	<title> Adicionar Inventario </title>
 	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../public/css/fontawesome-all.min.css">
 </head>
@@ -27,11 +27,11 @@
 						<input type="number" class="form-control" name="cantidadpedido" placeholder="Cantidad en el inventario" required>
 					</div>
 					<div class="form-group">
-						<label>Fecha de pedido</label>
+						<label>Fecha de entrada</label>
 						<input type="date" class="form-control" name="fechapedido" placeholder="Fecha de entrada" required>
 					</div>
 					<div class="form-group">
-						<label>Fecha de entrega</label>
+						<label>Fecha de salida</label>
 						<input type="date" class="form-control" name="fechaentrega" placeholder="Fecha de salida" required>
 					</div>
 					<div class="form-group">
