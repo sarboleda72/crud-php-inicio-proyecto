@@ -13,7 +13,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-10 col-md-offset-1">
 				<h1 class="text-center text-info"> <i class="fa fa-users"></i> CRUD - ( PHP & MYSQL ) </h1>
 				<hr>
 				<?php include 'config/connect.php'; ?>
@@ -24,7 +24,11 @@
 				<a href="users/create.php" class="btn btn-success">
 					<i class="fa fa-plus"></i> Adicionar inventario
 				</a>
+				<a href="pedido/create.php" class="btn btn-success">
+					<i class="fa fa-plus"></i> Adicionar pedido
+				</a>
 				<hr>
+				<h1>Inventario</h1>
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
@@ -50,6 +54,42 @@
 									<a href="users/show.php?id=<?php echo $row['codigobarra'] ?>" class="btn btn-default"> <i class="fa fa-search"></i> </a>
 									<a href="users/edit.php?id=<?php echo $row['codigobarra'] ?>" class="btn btn-default"> <i class="fa fa-pencil-alt"></i> </a>
 									<a href="javascript:;" class="btn btn-danger btn-delete" data-id="<?php echo $row['codigobarra'] ?>"> <i class="fa fa-trash"></i> </a>
+								</td>
+							</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+				<?php 
+				$sql     = "SELECT * FROM pedido";
+				$results = mysqli_query($conn, $sql);
+				 ?>
+				<hr>
+				<h1>Pedido</h1>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th> ID </th>
+							<th> Nombre del Artículo </th>
+							<th> Cantidad Pedido </th>
+							<th class="hidden-xs"> Fecha de Pedido </th>
+							<th class="hidden-xs"> Fecha de Entrega </th>
+							<th class="hidden-xs"> Foto </th>
+							<th> Acciones </th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php while ($row = mysqli_fetch_array($results)) { ?>
+							<tr>
+								<td> <?php echo $row['id'] ?> </td>
+								<td> <?php echo $row['nombrearticulo'] ?> </td>
+								<td> <?php echo $row['cantidadpedido'] ?> </td>
+								<td class="hidden-xs"> <?php echo $row['fechapedido'] ?> </td>
+								<td class="hidden-xs"> <?php echo $row['fechaentrega'] ?> </td>
+								<td class="hidden-xs"> <img src="<?php echo $row['foto'] ?>" width="40px"> </td>
+								<td>
+									<a href="pedido/show.php?id=<?php echo $row['id'] ?>" class="btn btn-default"> <i class="fa fa-search"></i> </a>
+									<a href="pedido/edit.php?id=<?php echo $row['id'] ?>" class="btn btn-default"> <i class="fa fa-pencil-alt"></i> </a>
+									<a href="javascript:;" class="btn btn-danger btn-delete" data-id="<?php echo $row['id'] ?>"> <i class="fa fa-trash"></i> </a>
 								</td>
 							</tr>
 						<?php } ?>
